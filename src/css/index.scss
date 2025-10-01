@@ -8,18 +8,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  font-family: Roboto, Helvetica, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Variáveis CSS padrão */
+  --bg-color: #242424;
+
+  font: {
+    family: Roboto, Helvetica, sans-serif;
+    weight: 400;
+    synthesis: none;
+    line-height: 1.5;
+  }
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--bg-color);
 
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 
+  A :root acima se refere ao elemento ao qual o React
+  vai ser construído, basicamente, por padrão, refere-se
+  ao body (se não me engano), já o #root abaixo é o
+  elemento em sí, onde o site vai ser construído
+*/
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 /*
@@ -29,13 +47,6 @@
 */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+    --bg-color: #fffffe;
   }
 }

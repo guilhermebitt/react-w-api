@@ -1,13 +1,19 @@
-import { useState } from 'react'
-import styles from './css/App.module.css'
+// Dependencies
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+// Components/Pages
+import Login from './pages/Login.jsx'
+
+// Stylesheets
+import './css/index.scss'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1>Vite + React</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/*" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
