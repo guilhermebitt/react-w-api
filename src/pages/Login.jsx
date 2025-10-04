@@ -1,42 +1,69 @@
 // Dependencies
 import { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import { getUsers, login } from "../services/api";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { login, createUser } from "../services/api";
 
 // Stylesheets
 import styles from "./Login.module.scss";
 
 function Login() {
-  const [loginData, setLoginData] = useState({ email: "", pass: "" });
-  const [registerData, setRegisterData] = useState({ username: "", email: "", pass: "", phone: "" });
-  const [message, setMessage] = useState("");
+	const [loginData, setLoginData] = useState({ email: "", pass: "" });
+	const [registerData, setRegisterData] = useState({
+		username: "",
+		email: "",
+		pass: "",
+		phone: "",
+	});
+	const [message, setMessage] = useState("");
+	const [, setToken] = useLocalStorage("token", null);
+	const navigate = useNavigate();
 
-	// Tudo o que estiver aqui dentro só será executado na construção do componente
-	useEffect(() => {}, []);
-
+	// Função responsável por efetuar o login do usuário
 	const handleLogin = async (e) => {
 		// "e" significa o elemento que chamou a função
 		e.preventDefault();
 
-    // Verificando se as credenciais estão corretas
-    const auth = await login(loginData)
-    
-    // Se estiverem corretas:
-    if (auth.success) {
-      // Pegando o usuário
-      const user = auth?.user
-      setMessage(`Bem-vindo, ${user.username}!`)
-    } else {
-      setMessage("Email ou senha incorretos")
-    }
+		// Realiza a tentativa de login
+		const result = await login(loginData);
+
+		// Verifica o resultado da operação
+		if (result && result.token) {
+			// Renderiza a mensagem e atualiza o token no local storage
+			setMessage("✅ Login realizado com sucesso!");
+			setToken(result.token);
+
+			// Envia o usuário para tela de perfil
+			navigate("/profile");
+		} else {
+			setMessage("❌ Email ou senha incorretos.");
+		}
 	};
 
-	const handleSignup = (e) => {
+	// Função responsável por criar um novo usuário
+	const handleSignup = async (e) => {
 		// "e" significa o elemento que chamou a função
-		console.log("oi")
+		e.preventDefault();
+
+		// Realiza a tentativa de criação de um novo usuário
+		const result = await createUser(registerData);
+
+		console.log(result);
+
+		// Verifica o resultado da operação
+		if (result && result.message) {
+			setMessage(result.message);
+
+			if (result && result.success) {
+				// Envia o usuário para tela de perfil
+				navigate("/profile");
+			}
+		} else {
+			setMessage("❌ Algo deu errado, tente novamente mais tarde.");
+		}
 	};
 
-  /*
+	/*
 
     USUÁRIO FICTÍCIO DE TESTE DE LOGIN:
     username: Teste
@@ -48,8 +75,8 @@ function Login() {
 	return (
 		<>
 			<main id={styles.loginMain}>
-        {/* Apenas para testes: */}
-        {message ? <p>{message}</p> : ''}
+				{/* Apenas para testes: */}
+				{message ? <p>{message}</p> : ""}
 				<Routes>
 					{/* FORMULÁRIO DE LOGIN */}
 					<Route
@@ -58,7 +85,7 @@ function Login() {
 							<>
 								<h2>Login</h2>
 								<form onSubmit={handleLogin}>
-                  {/* Input do e-mail */}
+									{/* Input do e-mail */}
 									<input
 										type="email"
 										placeholder="Email"
@@ -71,7 +98,7 @@ function Login() {
 										}
 										required
 									/>
-                  {/* Input da senha */}
+									{/* Input da senha */}
 									<input
 										type="password"
 										placeholder="Senha"
@@ -86,7 +113,7 @@ function Login() {
 									/>
 									<button type="submit">Entrar</button>
 								</form>
-                <Link to="/sign-up">Não possui conta?</Link>
+								<Link to="/sign-up">Não possui conta?</Link>
 							</>
 						}
 					/>
@@ -97,8 +124,8 @@ function Login() {
 							<>
 								<h2>Cadastro</h2>
 								<form onSubmit={handleSignup}>
-                  {/* Input do nome de usuário */}
-                  <input
+									{/* Input do nome de usuário */}
+									<input
 										type="text"
 										placeholder="Nome"
 										value={registerData.username}
@@ -110,8 +137,8 @@ function Login() {
 										}
 										required
 									/>
-                  {/* Input do e-mail */}
-                  <input
+									{/* Input do e-mail */}
+									<input
 										type="email"
 										placeholder="Email"
 										value={registerData.email}
@@ -123,7 +150,7 @@ function Login() {
 										}
 										required
 									/>
-                  {/* Input do senha */}
+									{/* Input do senha */}
 									<input
 										type="password"
 										placeholder="Senha"
@@ -136,8 +163,8 @@ function Login() {
 										}
 										required
 									/>
-                  {/* Input do telefone */}
-                  <input
+									{/* Input do telefone */}
+									<input
 										type="tel"
 										placeholder="Telefone"
 										value={registerData.phone}
@@ -150,7 +177,7 @@ function Login() {
 									/>
 									<button type="submit">Cadastrar</button>
 								</form>
-                <Link to="/">Já possui uma conta?</Link>
+								<Link to="/">Já possui uma conta?</Link>
 							</>
 						}
 					/>
