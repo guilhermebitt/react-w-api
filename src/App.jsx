@@ -5,9 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Profile from "./pages/restricted/Profile.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
-
-// Stylesheets
-import "./css/index.scss";
+import UpdateProfile from "./pages/restricted/UpdateProfile.jsx";
 
 function App() {
 	return (
@@ -21,6 +19,14 @@ function App() {
 					element={
 						<PrivateRoute>
 							<Profile />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path="/update-profile"
+					element={
+						<PrivateRoute>
+							<UpdateProfile />
 						</PrivateRoute>
 					}
 				/>

@@ -1,37 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
-#loginMain {
+.updateMain {
   font-family: "Roboto", sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   padding: 2rem;
   box-sizing: border-box;
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    font-weight: 500;
-    color: var(--primary-color); // azul principal
-  }
-
-  p {
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    color: var(--secondary-color); // azul secundário para feedback
-    text-align: center;
-  }
 
   form {
     background: color-mix(in srgb, var(--bg-color) 90%, #fff 10%);
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 100%;
-    max-width: 350px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -74,16 +60,9 @@
     }
   }
 
-  a {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-
-    &:hover {
-      color: var(--secondary-color);
-    }
+  .feedback {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
   }
 }

@@ -11,7 +11,7 @@ const api = axios.create({
 });
 
 // POST: método de login de usuário
-export const login = async (userData) => {
+export const loginUser = async (userData) => {
 	try {
 		const response = await api.post("/auth", userData);
 		return response.data;
@@ -22,7 +22,7 @@ export const login = async (userData) => {
 };
 
 // GET: método de verificação de login
-export const auth = async (token) => {
+export const authUser = async (token) => {
 	try {
 		const response = await api.get("/auth", {
 			headers: {
@@ -70,9 +70,13 @@ export const createUser = async (userData) => {
 };
 
 // PUT: atualizar usuário
-export const updateUser = async (id, userData) => {
+export const updateUser = async (userData, token) => {
 	try {
-		const response = await api.put(`/users/${id}`, userData);
+		const result = await authUser(token);
+
+		if (!result?.userId) return null;
+
+		const response = await api.put(`/users/${result.userId}`, userData);
 		return response.data;
 	} catch (error) {
 		console.error("Erro ao atualizar usuário:", error);
@@ -81,9 +85,13 @@ export const updateUser = async (id, userData) => {
 };
 
 // DELETE: remover usuário
-export const deleteUser = async (id) => {
+export const deleteUser = async (token) => {
 	try {
-		await api.delete(`/users/${id}`);
+		const result = await authUser(token);
+
+		if (!result?.userId) return null;
+
+		await api.delete(`/users/${result?.userId}`);
 		return true;
 	} catch (error) {
 		console.error("Erro ao deletar usuário:", error);

@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { login, createUser } from "../services/api";
+import { createUser } from "../services/api";
+import { useAuth } from "../hooks/useAuth.js";
 
 // Stylesheets
 import styles from "./Login.module.scss";
@@ -16,13 +17,14 @@ function Login() {
 		phone: "",
 	});
 	const [message, setMessage] = useState("");
-	const [token, setToken] = useLocalStorage("token", null);
+	const [token] = useLocalStorage("token", null);
 	const navigate = useNavigate();
+	const { login, logout } = useAuth();
 
 	// Verifica se o usuário já possui um token e redireciona para a tela de perfil
 	useEffect(() => {
 		if (token) {
-			navigate('/profile');
+			navigate("/profile");
 		}
 	}, []);
 
@@ -38,7 +40,6 @@ function Login() {
 		if (result && result.token) {
 			// Renderiza a mensagem e atualiza o token no local storage
 			setMessage("✅ Login realizado com sucesso!");
-			setToken(result.token);
 
 			// Envia o usuário para tela de perfil
 			navigate("/profile");

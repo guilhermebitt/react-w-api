@@ -2,18 +2,20 @@
 import { useState, useEffect, cloneElement } from "react";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Navigate } from "react-router-dom";
-import { auth, getUserById } from "../services/api";
+import { authUser, getUserById } from "../services/api";
+import { useAuth } from "../hooks/useAuth";
 
 function PrivateRoute({ children }) {
 	const [token, setToken] = useLocalStorage("token", null);
 	const [isAuth, setIsAuth] = useState(null);
 	const [userData, setUserData] = useState(null);
+	const { updateUser } = useAuth();
 
 	useEffect(() => {
 		// Realiza a verificação com o banco de dados
 		const authenticate = async () => {
 			// Verifica com o backend
-			const result = await auth(token);
+			const result = await authUser(token);
 
 			// Se estiver incorreto, retorna para a tela de login
 			if (!result) {
@@ -25,7 +27,10 @@ function PrivateRoute({ children }) {
 				// banco de dados.
 				const user = await getUserById(result.userId);
 
-				if (user.id) {  // Se o resultado da operação tiver um ID, é porque retornou o usuário
+				console.log(user)
+
+				if (user.id) {
+					// Se o resultado da operação tiver um ID, é porque retornou o usuário
 					setUserData(user);
 					setIsAuth(true);
 				}
@@ -44,7 +49,7 @@ function PrivateRoute({ children }) {
 	if (isAuth === null) return <p>Verificando autenticação...</p>;
 	// Se tiver → renderiza a tela protegida
 	return isAuth ? (
-		cloneElement(children, { user: userData })
+		cloneElement(children, { user: userData, onUpdate: updateUser })
 	) : (
 		<Navigate to="/" />
 	);
