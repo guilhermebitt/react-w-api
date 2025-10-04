@@ -16,8 +16,15 @@ function Login() {
 		phone: "",
 	});
 	const [message, setMessage] = useState("");
-	const [, setToken] = useLocalStorage("token", null);
+	const [token, setToken] = useLocalStorage("token", null);
 	const navigate = useNavigate();
+
+	// Verifica se o usuário já possui um token e redireciona para a tela de perfil
+	useEffect(() => {
+		if (token) {
+			navigate('/profile');
+		}
+	}, []);
 
 	// Função responsável por efetuar o login do usuário
 	const handleLogin = async (e) => {
