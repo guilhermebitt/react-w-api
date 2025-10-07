@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+#loginMain {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    color: var(--primary-color); // azul principal
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: var(--secondary-color); // azul secundário para feedback
+    text-align: center;
+  }
+
+  form {
+    background: color-mix(in srgb, var(--bg-color) 90%, #fff 10%);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+
+    input {
+      padding: 0.8rem 1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: color-mix(in srgb, var(--bg-color) 80%, #fff 20%);
+      color: var(--text-color);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+
+      &:focus {
+        border-color: var(--primary-color);
+        background: color-mix(in srgb, var(--bg-color) 70%, #fff 30%);
+      }
+    }
+
+    button {
+      background: var(--primary-color);
+      border: none;
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+
+      &:hover {
+        background: var(--primary-color-dark);
+      }
+
+      &:active {
+        background: var(--primary-color-darker);
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
+}

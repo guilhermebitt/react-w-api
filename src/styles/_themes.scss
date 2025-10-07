@@ -1,0 +1,18 @@
+@use "./variables" as *;
+
+:root {
+  --bg-color: #{$bg-black};
+  --text-color: #{$text-white};
+
+  --primary-color: #{$primary-blue};
+  --primary-color-dark: #{$primary-blue-dark};
+  --primary-color-darker: #{$primary-blue-darker};
+  --secondary-color: #{$secondary-blue};
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: #{$bg-white};
+    --text-color: #{$text-black};
+  }
+}
