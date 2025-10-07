@@ -1,16 +1,68 @@
-# React + Vite
+-----
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Front-end React para a API CRUD em PHP
 
-Currently, two official plugins are available:
+Este é o projeto de front-end em **React** para a **API RESTful de gerenciamento de usuários** construída em PHP. Ele oferece uma interface web simples e responsiva para interagir com a API, permitindo realizar todas as operações de **CRUD (Create, Read, Update, Delete)** de forma visual.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Funcionalidades
 
-## React Compiler
+  * **Listagem de usuários:** Exibe todos os usuários cadastrados na API.
+  * **Criação de novo usuário:** Formulário para adicionar novos usuários.
+  * **Edição de usuário:** Interface para atualizar os dados de um usuário existente.
+  * **Exclusão de usuário:** Botão para remover usuários.
+  * **Comunicação com a API:** Utiliza `fetch` ou uma biblioteca como **Axios** para se conectar com os endpoints da API.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## Estrutura de Pastas
 
-## Expanding the ESLint configuration
+```
+/src
+├── /components         # Componentes reutilizáveis (Formulário, Tabela, Botões)
+├── /pages              # Páginas da aplicação (HomePage, UserPage)
+├── /services           # Lógica de requisições para a API (ApiService.js)
+├── App.js              # Componente principal
+└── index.js            # Ponto de entrada da aplicação
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Instalação
+
+1.  **Clone o repositório:**
+
+    ```sh
+    git clone https://github.com/seu-usuario/react-crud-front.git
+    cd react-crud-front
+    ```
+
+2.  **Instale as dependências:**
+
+    ```sh
+    npm install
+    # ou yarn
+    ```
+
+3.  **Configure a URL da API:**
+
+      * Crie um arquivo `.env` na raiz do projeto.
+      * Adicione a URL base da sua API conforme o exemplo abaixo. Certifique-se de que o endereço e a porta estão corretos.
+
+    <!-- end list -->
+
+    ```
+    REACT_APP_API_URL=http://localhost/
+    ```
+
+## Uso
+
+1.  **Inicie o servidor de desenvolvimento:**
+
+    ```sh
+    npm start
+    ```
+
+2.  Abra seu navegador e acesse `http://localhost:3000`.
+
+      * A aplicação irá se conectar automaticamente com os endpoints da sua API PHP, listando os usuários ou exibindo uma mensagem de que não há dados.
+      * Use a interface para criar, editar ou excluir usuários, e observe as alterações refletidas em tempo real.
+
+## Licença
+
+**MIT**. Veja o arquivo `LICENSE` para mais detalhes.
